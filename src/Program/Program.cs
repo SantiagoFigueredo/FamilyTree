@@ -7,24 +7,48 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            Node n1 = new Node(1);
-            Node n2 = new Node(2);
-            Node n3 = new Node(3);
-            Node n4 = new Node(4);
-            Node n5 = new Node(5);
-            Node n6 = new Node(6);
-            Node n7 = new Node(7);
+            Persona abuelo = new Persona("Pedro", 70);
+            Persona padre = new Persona("Nestor", 45);
+            Persona madre = new Persona("Silvia", 42);
+            Persona hijo1 = new Persona("Mateo", 8);
+            Persona hijo2 = new Persona("Santiago", 18);
+            Persona hijo3 = new Persona("Sebastian", 15);
+            Persona hija1 = new Persona("Sol", 12);
+            Persona hija2 = new Persona("Isabella", 20);
 
-            n1.AddChildren(n2);
-            n1.AddChildren(n3);
+            Node nodeAbuelo = new Node(abuelo);
+            Node nodePadre = new Node(padre);
+            Node nodeMadre = new Node(madre);
+            Node nodeHijo1 = new Node(hijo1);
+            Node nodeHijo2 = new Node(hijo2);
+            Node nodeHijo3 = new Node(hijo3);
+            Node nodeHija1 = new Node(hija1);
+            Node nodeHija2 = new Node(hija2);
 
-            n2.AddChildren(n4);
-            n2.AddChildren(n5);
+            nodeAbuelo.AddChildren(nodePadre);
+            nodeAbuelo.AddChildren(nodeMadre);
 
-            n3.AddChildren(n6);
-            n3.AddChildren(n7);
+            nodePadre.AddChildren(nodeHijo1);
+            nodePadre.AddChildren(nodeHijo2);
+            nodePadre.AddChildren(nodeHijo3);
 
-            // visitar el árbol aquí
+            nodeMadre.AddChildren(nodeHija1);
+            nodeMadre.AddChildren(nodeHija2);
+
+            // Calcular suma de edades
+            SumaEdadesVisitor sumaEdadesVisitor = new SumaEdadesVisitor();
+            int sumaEdades = sumaEdadesVisitor.CalcularSumaEdades(nodeAbuelo);
+            Console.WriteLine("La suma de las edades de la familia es: " + sumaEdades);
+
+            // Encontrar hijo mayor
+            HijoMayorVisitor hijoMayorVisitor = new HijoMayorVisitor();
+            Node hijoMayor = hijoMayorVisitor.EncontrarHijoMayor(nodeAbuelo);
+            Console.WriteLine("El hijo más grande es: " + hijoMayor.Persona.Nombre);
+
+            // Encontrar nombre más largo
+            NombreLargoVisitor nombreLargoVisitor = new NombreLargoVisitor();
+            string nombreMasLargo = nombreLargoVisitor.EncontrarNombreMasLargo(nodeAbuelo);
+            Console.WriteLine("El nombre más largo es: " + nombreMasLargo);
         }
     }
 }
